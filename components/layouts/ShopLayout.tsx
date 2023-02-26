@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { Navbar } from "@/components/ui"
+import { Navbar, SideMenu } from "@/components/ui"
 
 interface ShopLayoutProps {
   title: string
@@ -33,7 +33,7 @@ const ShopLayout = ({ children, title, pageDescription, imageFullUrl }:ShopLayou
         <Navbar />
       </nav>
 
-      {/* TODO: Sidebar */}
+      <SideMenu />
 
       <main style={{
         margin: '80px auto',
