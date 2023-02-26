@@ -1,4 +1,5 @@
 import Head from "next/head"
+import { Navbar } from "@/components/ui"
 
 interface ShopLayoutProps {
   title: string
@@ -29,7 +30,7 @@ const ShopLayout = ({ children, title, pageDescription, imageFullUrl }:ShopLayou
       </Head>
 
       <nav>
-        {/* TODO: Navbar */}
+        <Navbar />
       </nav>
 
       {/* TODO: Sidebar */}
