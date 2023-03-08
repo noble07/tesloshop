@@ -4,7 +4,7 @@ import { ShopLayout } from '@/components/layouts'
 import { Box, Link, Typography } from '@mui/material'
 import { RemoveShoppingCartOutlined } from '@mui/icons-material'
 
-export default function emptyPage() {
+export default function EmptyPage() {
   return (
     <ShopLayout title="Carrito vació" pageDescription="No hay artículos en el carrito de compras">
       <Box
