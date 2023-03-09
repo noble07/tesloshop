@@ -16,7 +16,7 @@ export default function LoginPage() {
             <TextField label="Correo" variant="filled" fullWidth />
           </Grid>
           <Grid item xs={12}>
-            <TextField label="COntrasela" type="password" variant="filled" fullWidth />
+            <TextField label="Contraseña" type="password" variant="filled" fullWidth />
           </Grid>
 
           <Grid item xs={12}>
