@@ -1,5 +1,30 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# Tesloshop
+
+To run locally we need the database
+
+```
+docker compose up -d
+```
+
+* -d, means __detached__
+
+MongoDB URL Local:
+```
+mongodb://localhost:27017/teslodb
+```
+
+## Configure environment variables
+Rename file __.env.example__ to __.env__
+
+## Seed the data base
+
+fetch:
+```
+  http://localhost:3000/api/seed
+```
+
 ## Getting Started
 
 First, run the development server:
