@@ -14,7 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
       return getProductBySlug(req, res)
     default:
       return res.status(400).json({
-        message: 'Bad Request'
+        message: 'Bad request'
       })
   }
 }
