@@ -4,6 +4,8 @@ import { ShopLayout } from '@/components/layouts'
 import { ProductList } from '@/components/products'
 import { useProducts } from '@/hooks'
 
+import { FullScreenLoading } from '@/components/ui'
+
 export default function HomePage() {
 
   const {products, isLoading, isError} = useProducts('/products')
@@ -15,7 +17,7 @@ export default function HomePage() {
 
       {
         isLoading
-          ? <h1>Cargando...</h1>
+          ? <FullScreenLoading />
           : <ProductList products={products} />
       }
 
