@@ -28,7 +28,7 @@ const ProductCard = ({product}: ProductCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <NextLink legacyBehavior href="/product/slug" passHref prefetch={false}>
+        <NextLink legacyBehavior href={`/product/${product.slug}` } passHref prefetch={false}>
           <Link>
             <CardActionArea>
               <CardMedia

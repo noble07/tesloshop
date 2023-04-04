@@ -1,12 +1,22 @@
+import type { GetServerSideProps } from 'next'
+
+import { Box, Button, Grid, Typography } from '@mui/material'
+
 import { ShopLayout } from '@/components/layouts'
 import { ProductSlideshow, SizeSelector } from '@/components/products'
 import { ItemCounter } from '@/components/ui'
-import { initialData } from '@/database/products'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { IProduct } from '@/interfaces'
+import { getProductBySlug } from '@/database/dbProducts'
 
-const product = initialData.products[0]
+interface ProductPageProps {
+  product: IProduct
+}
 
-export default function ProductPage() {
+export default function ProductPage({product}: ProductPageProps) {
+
+ // const router = useRouter()
+ // const { products: product, isLoading } = useProducts(`/products/${router.query.slug}`)
+ 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
@@ -47,4 +57,25 @@ export default function ProductPage() {
       </Grid>
     </ShopLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+  const { slug = '' } = params as { slug: string }
+
+  const product = await getProductBySlug(slug as string)
+ 
+  if (!product) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      product
+    }
+  }
 }
