@@ -20,11 +20,11 @@ export default function SearchPage({products, foundProducts, query}: SearchPageP
 
       {
         foundProducts
-          ? <Typography variant="h2" sx={{ mb: 1 }}>Término: {query}</Typography>
+          ? <Typography variant="h2" sx={{ mb: 1 }} textTransform="capitalize">Término: {query}</Typography>
           : (
             <Box display="flex">
               <Typography variant="h2" sx={{ mb: 1 }}>No econtramos ningún producto</Typography>
-              <Typography variant="h2" sx={{ ml: 1 }} color="secondary">{query}</Typography>
+              <Typography variant="h2" sx={{ ml: 1 }} color="secondary" textTransform="capitalize">{query}</Typography>
             </Box>
           )
       }
