@@ -30,7 +30,15 @@ export default function ProductPage({product}: ProductPageProps) {
   const selectedSize = (size: Size) => {
     setTempCartProduct(product => ({...product, size}))
   }
- 
+
+  const selectedQuantity = (newQuantity: number) => {
+    setTempCartProduct(product => ({...product, quantity: newQuantity}))
+  }
+
+  const onAddProduct = () => {
+    console.log({tempCartProduct})
+  }
+
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
@@ -48,7 +56,11 @@ export default function ProductPage({product}: ProductPageProps) {
             <Box sx={{ my: 2 }}>
               <Typography variant="subtitle2">Cantidad</Typography>
               {/* ItemCounter */}
-              <ItemCounter />
+              <ItemCounter
+                currentValue={tempCartProduct.quantity}
+                updateQuantity={selectedQuantity}
+                maxValue={product.inStock}
+              />
               <SizeSelector
                 selectedSize={tempCartProduct.size}
                 sizes={product.sizes}
@@ -60,7 +72,11 @@ export default function ProductPage({product}: ProductPageProps) {
             {
               product.inStock > 0
                 ? (
-                  <Button color="secondary" className="circular-btn">
+                  <Button
+                    color="secondary"
+                    className="circular-btn"
+                    onClick={onAddProduct}
+                  >
                     {
                       tempCartProduct.size
                         ? 'Agregar al carrito'
