@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 
 import { Box, Button, Chip, Grid, Typography } from '@mui/material'
 
@@ -9,6 +10,7 @@ import { ItemCounter } from '@/components/ui'
 
 import { getAllProductsSlugs, getProductBySlug } from '@/database/dbProducts'
 import { ICartProduct, IProduct, Size } from '@/interfaces'
+import { CartContext } from '@/context'
 
 interface ProductPageProps {
   product: IProduct
@@ -16,6 +18,8 @@ interface ProductPageProps {
 
 export default function ProductPage({product}: ProductPageProps) {
 
+  const router = useRouter()
+  const {addProductToCart} = useContext(CartContext)
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     images: product.images[0],
@@ -36,7 +40,9 @@ export default function ProductPage({product}: ProductPageProps) {
   }
 
   const onAddProduct = () => {
-    console.log({tempCartProduct})
+    if (!tempCartProduct.size) return
+    addProductToCart(tempCartProduct)
+    router.push('/cart')
   }
 
   return (
