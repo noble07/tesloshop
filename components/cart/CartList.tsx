@@ -1,31 +1,29 @@
+import { useContext } from 'react'
+import { CartContext } from '@/context'
 import NextLink from 'next/link'
-import { initialData } from '@/database/products'
 import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from '@mui/material'
 import { ItemCounter } from '../ui'
-
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2]
-]
 
 interface CartListProps {
   editable?: boolean
 }
 
 const CartList = ({editable = false}: CartListProps) => {
+
+  const { cart } = useContext(CartContext)
+
   return (
     <>
       {
-        productsInCart.map(product => (
+        cart.map(product => (
           <Grid key={product.slug} container spacing={2} sx={{ mb: 1 }}>
             <Grid item xs={3}>
               {/* TODO: llevar a la página del producto */}
-              <NextLink legacyBehavior href="/product/slug" passHref>
+              <NextLink legacyBehavior href={`/product/${product.slug}`} passHref>
                 <Link>
                   <CardActionArea>
                     <CardMedia
-                      image={`/products/${product.images[0]}`}
+                      image={`/products/${product.images}`}
                       component="img"
                       sx={{ borderRadius: '5px' }}
                     />
@@ -36,12 +34,18 @@ const CartList = ({editable = false}: CartListProps) => {
             <Grid item xs={7}>
               <Box display="flex" flexDirection="column">
                 <Typography variant="body1">{product.title}</Typography>
-                <Typography variant="body1">Talla: <strong>M</strong></Typography>
+                <Typography variant="body1">Talla: <strong>{product.size}</strong></Typography>
 
                 {
                   editable
-                  ? <ItemCounter />
-                  : <Typography variant="h5">3 items</Typography>
+                  ? (
+                    <ItemCounter
+                      currentValue={product.quantity}
+                      maxValue={10}
+                      updateQuantity={() => {}}
+                    />
+                  )
+                  : <Typography variant="h5">{product.quantity} {product.quantity > 1 ? 'producto' : 'productos'}</Typography>
                 }
                 
               </Box>
