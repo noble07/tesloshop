@@ -3,6 +3,7 @@ import { CartContext } from '@/context'
 import NextLink from 'next/link'
 import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from '@mui/material'
 import { ItemCounter } from '../ui'
+import { ICartProduct } from '@/interfaces'
 
 interface CartListProps {
   editable?: boolean
@@ -10,13 +11,21 @@ interface CartListProps {
 
 const CartList = ({editable = false}: CartListProps) => {
 
-  const { cart } = useContext(CartContext)
+  const { cart, updateCartQuantity } = useContext(CartContext)
+
+  const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) => {
+    const newProduct: ICartProduct = {
+      ...product,
+      quantity: newQuantityValue
+    }
+    updateCartQuantity(newProduct)
+  }
 
   return (
     <>
       {
         cart.map(product => (
-          <Grid key={product.slug} container spacing={2} sx={{ mb: 1 }}>
+          <Grid key={product.slug + product.size} container spacing={2} sx={{ mb: 1 }}>
             <Grid item xs={3}>
               {/* TODO: llevar a la página del producto */}
               <NextLink legacyBehavior href={`/product/${product.slug}`} passHref>
@@ -42,7 +51,7 @@ const CartList = ({editable = false}: CartListProps) => {
                     <ItemCounter
                       currentValue={product.quantity}
                       maxValue={10}
-                      updateQuantity={() => {}}
+                      updateQuantity={(value) => onNewCartQuantityValue(product, value)}
                     />
                   )
                   : <Typography variant="h5">{product.quantity} {product.quantity > 1 ? 'producto' : 'productos'}</Typography>
